@@ -56,3 +56,22 @@ body {
 .card-text a:visited {
 	color:brown;
 }
+
+
+::-webkit-scrollbar {
+	width: 0px;
+	height: 0px;
+}
+::-webkit-scrollbar-thumb {
+	background: #daa520;
+	border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover{
+	background: #daa520;
+	width: 3px;
+	height: 3px;
+}
+::-webkit-scrollbar-track{
+	background: #131c25;
+	border-radius: 0px;
+}

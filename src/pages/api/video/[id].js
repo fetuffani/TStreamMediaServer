@@ -54,6 +54,7 @@ function video(request, response) {
 			const head = {
 				'Content-Length': fileSize,
 				'Content-Type': 'video/mp4',
+				'Access-Control-Allow-Origin': '*:*'
 			};
 			response.writeHead(200, head);
 			fs.createReadStream(videpath).pipe(response);
