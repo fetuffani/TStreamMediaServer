@@ -4,12 +4,15 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+body {
+	background-color: #131c25;
+}
+
 #__next {
 	width: 100%;
 }
 
 #mainwrapper {
-	background-color: #131c25;
 	color: antiquewhite;
 	text-align: center;
 }
@@ -17,6 +20,10 @@
 #contentwrapper {
 	width: 90%;
 	margin: auto;
+}
+
+.card-deck {
+	height: 100%;
 }
 
 .card {

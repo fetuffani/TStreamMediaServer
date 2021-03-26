@@ -10,7 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/fetuffani/TStreamMediaServer.git"
   },
-  "keywords": ["Media Server", "Home Media Server"],
+  "keywords": [
+    "Media Server",
+    "Home Media Server"
+  ],
   "author": "Felipe Tuffani",
   "license": "",
   "bugs": {
@@ -19,6 +22,7 @@
   "homepage": "https://github.com/fetuffani/TStreamMediaServer#readme",
   "dependencies": {
     "bootstrap": "^4.6.0",
+    "cors": "^2.8.5",
     "next": "^10.0.9",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",

@@ -1,8 +1,25 @@
+import Cors from 'cors'
 
+// Initializing the cors middleware
+const cors = Cors({
+	methods: ['GET', 'HEAD'],
+})
 
 
 var path = require('path');
 var fs = require('fs');
+
+function runMiddleware(req, res, fn) {
+	return new Promise((resolve, reject) => {
+		fn(req, res, (result) => {
+			if (result instanceof Error) {
+				return reject(result)
+			}
+
+			return resolve(result)
+		})
+	})
+}
 
 function fromDir(startPath, filter) {
 
@@ -52,7 +69,7 @@ export function getVideos() {
 
 	videofiles.forEach(video => {
 		videos.push(
-			{id: videos.length, path: video}
+			{ id: videos.length, path: video }
 		)
 	});
 
@@ -61,17 +78,27 @@ export function getVideos() {
 
 
 
-function videos(request, response) {
+async function videos(request, response) {
+
+	await runMiddleware(request, response, cors)
 
 	var videos = getVideos();
 
-
-
 	response.json({
-		status:"ok",
-		err:"",
+		status: "ok",
+		err: "",
 		videos: videos
 	});
+}
+
+export async function getServerSideProps(context) {
+
+	// set HTTP header
+	context.res.setHeader('Access-Control-Allow-Origin', '*:*')
+
+	return {
+		props: {}, // will be passed to the page component as props
+	}
 }
 
 export default videos;

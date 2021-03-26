@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
+import Spinner from 'react-bootstrap/Spinner'
 
 
 function VideoList() {
@@ -48,14 +49,19 @@ function VideoList() {
 
 
 
-	return (<div>
-		<h1>Lista de videos({Object.keys(videos.videos).length})</h1>
+	return (
+		<div> { 
+			videos.status == "loading" ? <div><Spinner animation="border" variant="light" /></div>
+			: <>
+				<h1>{Object.keys(videos.videos).length} vídeos</h1>
 
-		<div class="row">
-			{renderLinks()}
+				<div class="row">
+					{renderLinks()}
+				</div>
+			</>
+			}
 		</div>
-		
-	</div>)
+	)
 }
 
 export default VideoList

@@ -28,7 +28,7 @@ function video(request, response) {
 	}
 	var video = videos[index];
 	var videpath = video.path;
-	console.log(videpath)
+	// console.log(videpath)
 
 	try {
 		const stat = fs.statSync(videpath);
@@ -46,6 +46,7 @@ function video(request, response) {
 				'Accept-Ranges': 'bytes',
 				'Content-Length': chunksize,
 				'Content-Type': 'video/mp4',
+				'Access-Control-Allow-Origin': '*:*'
 			};
 			response.writeHead(206, head);
 			file.pipe(response);
