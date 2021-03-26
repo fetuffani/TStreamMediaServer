@@ -27,6 +27,10 @@ function VideoList() {
 		var links = []
 		for (let i = 0; i < videos.videos.length; i++) {
 			const element = videos.videos[i];
+			const paths = element.path.split('\\');
+			const pathelems = []
+			paths.forEach(p => {pathelems.push(<p>-- {p}</p>)})
+			pathelems.reverse();
 			links.push(
 				<div style={{ marginBottom: "15px" }} class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
 						<CardDeck>
@@ -35,7 +39,7 @@ function VideoList() {
 								<Card.Body>
 									<Card.Title>{element.path.replace(/^.*[\\\/]/, '')}</Card.Title>
 									<Card.Text>
-										{element.path} 
+										{pathelems} 
 										<a href={"api/video/" + element.id} class="mt-2 mb-2 btn btn-block">Assistir</a>
 									</Card.Text>
 								</Card.Body>

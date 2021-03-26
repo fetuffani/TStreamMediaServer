@@ -30,11 +30,24 @@ body {
 	background-color: #2f455b;
 	border-width: 5px;
 	border-radius: 5px;
+	transition: ease 0.3s;
+}
+
+.card:hover {
+	background-color: #283c4f;
+	color: goldenrod;
 }
 
 .card-title {
 	font-weight: bold;
 }
+
+.card-text p {
+	margin: 0;
+	font-size: small;
+	text-align: left;
+}
+
 
 .card-text a {
 	color: antiquewhite;

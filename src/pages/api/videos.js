@@ -76,11 +76,9 @@ export function getVideos() {
 	return videos;
 }
 
+function videos(request, response) {
 
-
-async function videos(request, response) {
-
-	await runMiddleware(request, response, cors)
+	runMiddleware(request, response, cors)
 
 	var videos = getVideos();
 
