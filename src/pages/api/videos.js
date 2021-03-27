@@ -21,7 +21,7 @@ function runMiddleware(req, res, fn) {
 	})
 }
 
-function fromDir(startPath, filter) {
+function fromDir(startPath, filter, searchSubFolders) {
 
 	//console.log('Starting from dir '+startPath+'/');
 
@@ -36,7 +36,7 @@ function fromDir(startPath, filter) {
 	for (var i = 0; i < files.length; i++) {
 		var filename = path.join(startPath, files[i]);
 		var stat = fs.lstatSync(filename);
-		if (stat.isDirectory()) {
+		if (stat.isDirectory() && searchSubFolders) {
 			fromDir(filename, filter).forEach(f => {
 				rets.push(f)
 			}); //recurse
@@ -51,9 +51,15 @@ function fromDir(startPath, filter) {
 };
 
 
-export function getVideos() {
+export function getVideos(searchdir, searchSubFolders) {
 	var videofiles = [];
 	var dir = 'D:\\Downloads\\';
+	dir = path.join(dir,searchdir);
+
+	if (!fs.existsSync(dir))
+	{
+		return [];
+	}
 
 	// fromDir(dir, '.mkv').forEach(file => {
 	// 	videofiles.push(file)
@@ -61,8 +67,8 @@ export function getVideos() {
 	// fromDir(dir, '.avi').forEach(file => {
 	// 	videofiles.push(file)
 	// });
-	fromDir(dir, '.mp4').forEach(file => {
-		videofiles.push(file)
+	fromDir(dir, '.mp4', searchSubFolders).forEach(file => {
+		videofiles.push(file);
 	});
 
 	var videos = []
@@ -76,16 +82,61 @@ export function getVideos() {
 	return videos;
 }
 
+export function getDirs(searchdir) {
+	var founddirs = [];
+	var dir = 'D:\\Downloads\\';
+	dir = path.join(dir,searchdir);
+
+	if (!fs.existsSync(dir))
+	{
+		return [];
+	}
+
+	// fromDir(dir, '.mkv').forEach(file => {
+	// 	videofiles.push(file)
+	// });
+	// fromDir(dir, '.avi').forEach(file => {
+	// 	videofiles.push(file)
+	// });
+	var folders = fs.readdirSync(dir);
+	folders.forEach(folder => {
+		var stat = fs.lstatSync(path.join(dir,folder));
+		if (stat.isDirectory()) {
+			founddirs.push(folder+"/")
+		}
+	});
+
+
+	var dirs = []
+
+	founddirs.forEach(folder => {
+		dirs.push(
+			{ id: dirs.length, path: folder }
+		)
+	});
+
+	return dirs;
+}
+
 function videos(request, response) {
 
 	runMiddleware(request, response, cors)
 
-	var videos = getVideos();
+	let params = new URLSearchParams(request.query);
+	var searchdir = params.get("dir");
+	if (!searchdir) { searchdir = '/'; }
+
+	//Object.keys(request.query).forEach((prop)=> console.log(prop));
+
+	var videos = getVideos(searchdir, false);
+	var dirs = getDirs(searchdir);
 
 	response.json({
 		status: "ok",
 		err: "",
-		videos: videos
+		searchdir: searchdir,
+		dirs: dirs,
+		videos: videos,
 	});
 }
 

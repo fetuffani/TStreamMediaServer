@@ -5,7 +5,9 @@ import { getVideos } from '../videos'
 
 
 process.on('uncaughtException', function (err) {
-	console.log(err)
+	console.log('------------ Uncaugth Exception Start');
+	console.log(err);
+	console.log('------------ Uncaugth Exception End');
 });
 
 Array.prototype.findVideoIndexById = function (videoid) {
@@ -18,13 +20,18 @@ Array.prototype.findVideoIndexById = function (videoid) {
 
 function video(request, response) {
 
-	var videos = getVideos();
+	let params = new URLSearchParams(request.query);
+	var searchdir = params.get("dir");
+	if (!searchdir) { searchdir = '/'; }
+	var videos = getVideos(searchdir, false);
+
 	var index = videos.findVideoIndexById(request.query.id);
 	if (index < 0) {
 		response.json({
 			status: "error",
 			err: "video id not found",
 		});
+		return;
 	}
 	var video = videos[index];
 	var videpath = video.path;

@@ -3,15 +3,20 @@ import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
 import Spinner from 'react-bootstrap/Spinner'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Button from 'react-bootstrap/Button'
+
 
 
 function VideoList() {
 
 	const [videos, setVideos] = useState({ status: "loading", videos: [] });
+	const [dir, setDir] = useState('/');
+
 
 	useEffect(async () => {
 		if (videos.status == "loading") {
-			const apiUrl = "http://192.168.15.11:3000/api/videos";
+			const apiUrl = "http://192.168.15.11:3000/api/videos?dir="+dir;
 			const fetched = await fetch(apiUrl).then(response => {
 				if (response.ok) {
 					response.json().then(json => {
@@ -20,10 +25,30 @@ function VideoList() {
 				}
 			});
 		}
-	});
+	}, [videos, dir]);
 
+	const changePath = function (path, goBack){
+		setDir( (goBack ? path : dir +path));
+		setVideos({ status: "loading", videos: [] });
+	}
 
-	const renderLinks = function () {
+	const renderDirLinks = function () {
+		var links = []
+		var split = dir.split("/");
+		var updir = split.slice(0, split.length - 2).join("/") + "/";
+		links.push(						
+			<ListGroup.Item action onClick={() => {{changePath(updir,true)}}}>Voltar</ListGroup.Item>
+		)
+		for (let i = 0; i < videos.dirs.length; i++) {
+			const element = videos.dirs[i];
+			links.push(						
+				<ListGroup.Item action onClick={() => {{changePath(element.path,false)}}}>{element.path}</ListGroup.Item>
+			)
+		}
+		return <div id="linksdiv"><ListGroup>{links}</ListGroup></div>;
+	}
+
+	const renderVideoLinks = function () {
 		var links = []
 		for (let i = 0; i < videos.videos.length; i++) {
 			const element = videos.videos[i];
@@ -40,7 +65,7 @@ function VideoList() {
 									<Card.Title>{element.path.replace(/^.*[\\\/]/, '')}</Card.Title>
 									<Card.Text>
 										{pathelems} 
-										<a href={"api/video/" + element.id} class="mt-2 mb-2 btn btn-block">Assistir</a>
+										<a href={"api/video/" + element.id + "?dir="+dir} class="mt-2 mb-2 btn btn-block">Assistir</a>
 									</Card.Text>
 								</Card.Body>
 							</Card>
@@ -57,10 +82,14 @@ function VideoList() {
 		<div> { 
 			videos.status == "loading" ? <div><Spinner animation="border" variant="light" /></div>
 			: <>
-				<h1>{Object.keys(videos.videos).length} vídeos</h1>
+				<h1>Diretório: {dir}</h1>
 
 				<div class="row">
-					{renderLinks()}
+					{renderDirLinks()}
+				</div>
+
+				<div class="row">
+					{renderVideoLinks()}
 				</div>
 			</>
 			}

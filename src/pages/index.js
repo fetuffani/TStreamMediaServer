@@ -34,6 +34,20 @@ const Index = () => (
 		<div id="contentwrapper" class="contentwrapper">
 			<VideoList />
 		</div>
+		<div class="mainbg">
+			<ul class="circles">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
 	</div>
 );
 
