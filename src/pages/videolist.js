@@ -65,7 +65,7 @@ function VideoList() {
 									<Card.Title>{element.path.replace(/^.*[\\\/]/, '')}</Card.Title>
 									<Card.Text>
 										{pathelems} 
-										<a href={"api/video/" + element.id + "?dir="+dir} class="mt-2 mb-2 btn btn-block">Assistir</a>
+										<a href={"api/video/" + element.id + "?dir="+dir} class="mt-2 mb-2 btn btn-block" target="_blank">Assistir</a>
 									</Card.Text>
 								</Card.Body>
 							</Card>
