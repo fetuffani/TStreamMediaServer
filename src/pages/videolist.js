@@ -80,7 +80,7 @@ function VideoList() {
 
 	return (
 		<div> { 
-			videos.status == "loading" ? <div><Spinner animation="border" variant="light" /></div>
+			videos.status == "loading" ? <div style={{marginTop: "15px"}}><Spinner animation="border" variant="light" /></div>
 			: <>
 				<h1>Diretório: {dir}</h1>
 

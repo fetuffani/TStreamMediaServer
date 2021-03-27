@@ -13,7 +13,7 @@ body {
 }
 
 #mainwrapper {
-	color: antiquewhite;
+	color: #f8f8f8;
 	text-align: center;
 }
 
@@ -27,7 +27,7 @@ body {
 }
 
 .card {
-	background-color: #2f455b;
+	background-color: #131c25;
 	border-width: 5px;
 	border-radius: 5px;
 	transition: ease 0.3s;
@@ -35,8 +35,8 @@ body {
 }
 
 .card:hover {
-	background-color: #283c4f;
-	color: goldenrod;
+	border-color: #ffb709;
+	color:#ffb709;
 }
 
 .card-title {
@@ -51,11 +51,15 @@ body {
 
 
 .card-text a {
-	color: antiquewhite;
+	color: #f8f8f8;
+}
+
+.card-text a:hover {
+	color:#ffb709;
 }
 
 .card-text a:visited {
-	color:brown;
+	color:#ffb709;
 }
 
 
@@ -67,8 +71,14 @@ body {
 }
 
 .list-group-item {
-	background-color: #283c4f;
-	color: antiquewhite;
+	background-color: #131c25;
+	color: #f8f8f8;
+	transition:ease 0.3s;
+}
+
+.list-group-item:hover {
+	background-color: #ffb709;
+	color: #131c25;
 	transition:ease 0.3s;
 }
 
@@ -78,11 +88,11 @@ body {
 	height: 0px;
 }
 ::-webkit-scrollbar-thumb {
-	background: #daa520;
+	background: #ffb709;
 	border-radius: 0px;
 }
 ::-webkit-scrollbar-thumb:hover{
-	background: #daa520;
+	background: #ffb709;
 	width: 3px;
 	height: 3px;
 }
