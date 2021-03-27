@@ -14,7 +14,13 @@ import Carousel from 'react-bootstrap/Carousel'
 import VideoList from './videolist'
 
 
-
+function bgelements() {
+	var elements = []
+	for (let i = 0; i < 10; i++) {
+		elements.push(<li></li>)
+	}
+	return elements;
+}
 
 const Index = () => (
 	<div id="mainwrapper">
@@ -36,16 +42,7 @@ const Index = () => (
 		</div>
 		<div class="mainbg">
 			<ul class="circles">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+				{bgelements()}
 			</ul>
 		</div>
 	</div>

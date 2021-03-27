@@ -38,8 +38,8 @@
 		left: #{random(100)}vw;
 		width: $size;
 		height: $size;
-		animation-delay: #{random(5)+12}s;
-		animation-duration: #{random(45)}s;
+		animation-delay: #{random(45)}s;
+		animation-duration: #{random(33)+12}s;
 	}
 }
 
@@ -53,7 +53,9 @@
     }
 
     100%{
-        transform: translateY(-1000px) rotate(720deg);
+        transform: translateY(-1000px) 
+			rotate(#{random(1080)}deg) 
+			scale(#{random(2)});
         opacity: 0;
         border-radius: 50%;
     }
