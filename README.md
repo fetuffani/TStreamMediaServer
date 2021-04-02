@@ -2,6 +2,8 @@
 
 TStream started as a POC to allow people to easily stream media content to their network devices using a website format with almost zero configuration.
 
+Although there are other softwares (like Plex) out there, none of them is easy and simple and many require extensive configurations and are not straightforward. So I decided to create my own homestreaming software
+
 Currently it is being built with NodeJS, React and Bootstrap components in a SPA design (Single Page Application) and no coding patterns are being used at the moment.
 
 **WARNING:** Although you can technically serve your media files over the web with TStream, it currently does not prevent any unauthorized access and there is no SSL or any kind of encryption over the transmitted data. So I do not recommend you to do so yet.
@@ -23,7 +25,9 @@ npm run build
 npm run prod
 ```
 
+PS: Only MP4, JPG and PNG files are being served at the moment.
 
+Some devices cannot display HEVC or HEIF encodings, you must convert them to a format your device can play
 
 ## ToDo's
 

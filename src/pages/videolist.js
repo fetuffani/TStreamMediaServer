@@ -108,7 +108,7 @@ function VideoList() {
 		<div> {
 			videos.status == "loading" ? <div style={{ marginTop: "15px" }}><Spinner animation="border" variant="light" /></div>
 				: <>
-					<h1>Diretório: {dir}</h1>
+					<h6>Directory: {dir}</h6>
 
 					<div class="row">
 						{renderDirLinks()}
