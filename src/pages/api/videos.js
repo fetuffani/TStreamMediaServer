@@ -9,7 +9,7 @@ const cors = Cors({
 var path = require('path');
 var fs = require('fs');
 var regex = new RegExp("^\\D*([0-9]{1,9}).+$");
-var rootdir = 'D:\\Downloads\\';
+var rootdir = process.env.ROOT_PATH;
 
 function runMiddleware(req, res, fn) {
 	return new Promise((resolve, reject) => {

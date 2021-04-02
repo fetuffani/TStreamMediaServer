@@ -32,7 +32,7 @@ const Index = () => (
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav className="mr-auto">
-						<Nav.Item as="li"><Nav.Link active>Vídeos</Nav.Link></Nav.Item>
+						<Nav.Item as="li"><Nav.Link href="https://github.com/fetuffani/TStreamMediaServer" active>About</Nav.Link></Nav.Item>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
