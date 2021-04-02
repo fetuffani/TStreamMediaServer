@@ -8,6 +8,8 @@ const cors = Cors({
 
 var path = require('path');
 var fs = require('fs');
+var regex = new RegExp("^\\D*([0-9]{1,9}).+$");
+var rootdir = 'D:\\Downloads\\';
 
 function runMiddleware(req, res, fn) {
 	return new Promise((resolve, reject) => {
@@ -53,7 +55,7 @@ function fromDir(startPath, filter, searchSubFolders) {
 
 export function getVideos(searchdir, searchSubFolders) {
 	var videofiles = [];
-	var dir = 'D:\\Downloads\\';
+	var dir = rootdir;
 	dir = path.join(dir,searchdir);
 
 	if (!fs.existsSync(dir))
@@ -79,12 +81,62 @@ export function getVideos(searchdir, searchSubFolders) {
 		)
 	});
 
+	var regex = new RegExp("^\\D*([0-9]{1,9}).+$")
+
+	videos.sort((v1,v2) => { return orderByFirstNumberinString(v1,v2); });
+
 	return videos;
+}
+
+export function getPics(searchdir, searchSubFolders) {
+	var videofiles = [];
+	var dir = rootdir;
+	dir = path.join(dir,searchdir);
+
+	if (!fs.existsSync(dir))
+	{
+		return [];
+	}
+
+	// fromDir(dir, '.mkv').forEach(file => {
+	// 	videofiles.push(file)
+	// });
+	fromDir(dir, '.jpg').forEach(file => {
+		videofiles.push(file)
+	});
+	fromDir(dir, '.png', searchSubFolders).forEach(file => {
+		videofiles.push(file);
+	});
+
+	var videos = []
+
+	videofiles.forEach(video => {
+		videos.push(
+			{ id: videos.length, path: video }
+		)
+	});
+
+	var regex = new RegExp("^\\D*([0-9]{1,9}).+$")
+
+	videos.sort((v1,v2) => { return orderByFirstNumberinString(v1,v2); });
+
+	return videos;
+}
+
+function orderByFirstNumberinString(v1,v2)
+{
+	var f1 = path.parse(v1.path).base;
+	var f2 = path.parse(v2.path).base;
+	var r1 = regex.exec(f1);
+	var r2 = regex.exec(f2);
+	var o1 = r1 && r1.length >= 2 ? r1[1] : 2;
+	var o2 = r2 && r2.length >= 2 ? r2[1] : 1;
+	return o1-o2;
 }
 
 export function getDirs(searchdir) {
 	var founddirs = [];
-	var dir = 'D:\\Downloads\\';
+	var dir = rootdir;
 	dir = path.join(dir,searchdir);
 
 	if (!fs.existsSync(dir))
@@ -115,6 +167,8 @@ export function getDirs(searchdir) {
 		)
 	});
 
+	dirs.sort((v1,v2) => { return orderByFirstNumberinString(v1,v2); });
+
 	return dirs;
 }
 
@@ -130,6 +184,7 @@ function videos(request, response) {
 
 	var videos = getVideos(searchdir, false);
 	var dirs = getDirs(searchdir);
+	var pics = getPics(searchdir);
 
 	response.json({
 		status: "ok",
@@ -137,6 +192,7 @@ function videos(request, response) {
 		searchdir: searchdir,
 		dirs: dirs,
 		videos: videos,
+		pics: pics,
 	});
 }
 
