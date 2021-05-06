@@ -91,7 +91,7 @@ function VideoList() {
 						<Card>
 							<LazyLoad>
 								<a href={"api/pic/" + element.id + "?dir=" + dir} target="_blank">
-									<Card.Img variant="top" src={"api/pic/" + element.id + "?dir=" + dir} />
+									<Card.Img variant="top" src={"api/pic/" + element.id + "?dir=" + dir}/>
 								</a>
 							</LazyLoad>
 						</Card>

@@ -48,4 +48,11 @@ const Index = () => (
 	</div>
 );
 
+export async function getServerSideProps(context) {
+	console.log("serversideprops");
+	return {
+	  props: {}, // will be passed to the page component as props
+	}
+  }
+
 export default Index;

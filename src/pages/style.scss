@@ -62,6 +62,11 @@ body {
 	color:#ffb709;
 }
 
+.card-img-top {
+	object-fit: contain;
+	min-height: 250px;
+}
+
 
 #linksdiv {
 	margin: auto;
